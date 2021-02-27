@@ -31,6 +31,14 @@ def reviewsite(request):
     # print(WebsiteInfo.objects.get(pk=search_key))
     try:
         website=WebsiteInfo.objects.get(pk=search_key)
+        print(user_email)
+        print(User.objects.get(pk=user_email))
+        if 'rating' in request.POST:
+            review = Review(email=User.objects.get(pk=user_email),website_name=website, rating=request.POST["rating"]
+            , comment=request.POST["comment"],category=request.POST["type"],
+            weight=(User.objects.get(pk=user_email)).weight)
+            review.save()
+            updateCredibility(website,review)
         return render(request, 'reviewsite.html',{'website': website})
     except WebsiteInfo.DoesNotExist:
         return HttpResponse("Website does not exist  in database")
@@ -69,26 +77,31 @@ def login(request):
 
 def updateCredibility(website,review):
     user=User.objects.get(pk = user_email)
-    reviews=Review.objects.query(category=review.category)
+    reviews=Review.objects.all().filter(category=review.category)
     weight_sum=0
     for r in reviews:
-        temp_user=User.objects.get(pk=r.email)
+        temp_user=r.email
         weight_sum=weight_sum+temp_user.weight
-
+    print(weight_sum)
     if(review.category=='News'):
+        print(review.rating)
+        print(website.average_media)
         print('News Updated')
-        new_media_average=(website.average_media*(weight_sum-user.weight)+user.weight*review.rating)/(weight_sum)
+        new_media_average=float(float(website.average_media)*float(weight_sum-user.weight)
+        + float(user.weight)*float(review.rating))/weight_sum
         website.number_media_reviews=website.number_media_reviews+1
         website.average_media=new_media_average
     elif(review.category=='Entertainment'):
         print('ENT Updated')
-        new_entertainment_average=(website.average_entertainment*website.number_entertainment_reviews+user.weight*review.rating)/(website.number_entertainment_reviews+1)
+        new_entertainment_average=float(float(website.average_entertainment)*float(weight_sum-user.weight)
+        + float(user.weight)*float(review.rating))/weight_sum
         website.number_entertainment_reviews=website.number_entertainment_reviews+1
         website.average_entertainment=new_entertainment_average
     
     elif(review.category=='Fact'):
         print('fact Updated')
-        new_fact_average=(website.average_fact*website.number_fact_reviews+user.weight*review.rating)/(website.number_fact_reviews+1)
+        new_fact_average=float(float(website.average_fact)*float(weight_sum-user.weight)
+        + float(user.weight)*float(review.rating))/weight_sum
         website.number_fact_reviews=website.number_fact_reviews+1
         website.average_fact=new_fact_average
     
