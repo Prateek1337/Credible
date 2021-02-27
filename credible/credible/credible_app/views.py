@@ -18,3 +18,9 @@ def reviewsite(request):
     except:
         print("No response")
     return render(request, 'reviewsite.html')
+
+def signup(request):
+    return render(request,'signup.html')
+
+def login(request):
+    return render(request, 'login.html')
