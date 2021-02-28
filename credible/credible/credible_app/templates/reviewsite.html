@@ -280,13 +280,13 @@ body{
                   <div class="card h-100">
                     <div class="card-body" >
                      
-                                <span class="heading-1"><h4>Overall User Rating</h4></span>
+                                <span class="heading-1"><h4><label id="typeName"></label> User Rating</h4></span>
                                 <span class="fa fa-star checked"></span>
                                 <span class="fa fa-star checked"></span>
                                 <span class="fa fa-star checked"></span>
                                 <span class="fa fa-star checked"></span>
                                 <span class="fa fa-star"></span>
-                                <p>4.1 average based on 254 reviews.</p>
+                                <p ><label id='average'>4.1</label> average based on <label id='review'>4.1</label> reviews.</p>
                                 <hr style="border:3px solid #f1f1f1">
 
                                 <div class="row" style="padding-left: 15px;padding-right: 15px;">
@@ -299,7 +299,7 @@ body{
                                     </div>
                                 </div>
                                 <div class="side right">
-                                    <div>150</div>
+                                    <div><label id = "5">150</label></div>
                                 </div>
                                 <div class="side">
                                     <div>4 star</div>
@@ -310,7 +310,7 @@ body{
                                     </div>
                                 </div>
                                 <div class="side right">
-                                    <div>63</div>
+                                    <label id = "4">150</label>
                                 </div>
                                 <div class="side">
                                     <div>3 star</div>
@@ -321,7 +321,7 @@ body{
                                     </div>
                                 </div>
                                 <div class="side right">
-                                    <div>15</div>
+                                    <div><label id = "3">150</label></div>
                                 </div>
                                 <div class="side">
                                     <div>2 star</div>
@@ -332,7 +332,7 @@ body{
                                     </div>
                                 </div>
                                 <div class="side right">
-                                    <div>6</div>
+                                    <div><label id = "2">150</label></div>
                                 </div>
                                 <div class="side">
                                     <div>1 star</div>
@@ -343,7 +343,7 @@ body{
                                     </div>
                                 </div>
                                 <div class="side right">
-                                    <div>20</div>
+                                    <div><label id = "1">150</label></div>
                                 </div>
                                 </div>
                       </div>
@@ -370,10 +370,10 @@ body{
                                         <input type="hidden" action='.' name="search" value={{website.name}}>
                                         <div class="form-group">
                                             <label for="exampleFormControlSelect1">Example select</label>
-                                            <select class="form-control" id="exampleFormControlSelect1" name="type">
-                                              <option value="News">News</option>
-                                              <option value="Entertainment">Entertainment</option>
-                                              <option value="Fact">Fact</option>
+                                            <select class="form-control" id="mySelect" name="type" onchange="changeCatogory()">
+                                              <option  value="News">News</option>
+                                              <option  value="Entertainment">Entertainment</option>
+                                              <option  value="Fact">Fact</option>
                                             </select>
                                           </div>
                                         <label for="exampleFormControlTextarea1">Review</label>
@@ -421,7 +421,127 @@ body{
             SetRatingStar();
             $(document).ready(function() {
             
-            });</script>
+            });
+            window.onload =function(){
+                changeCatogory()
+
+            };
+            
+
+            function changeCatogory(){
+                var x=document.getElementById("mySelect").value;
+                var bar1=document.getElementsByClassName('bar-1')
+                var bar2=document.getElementsByClassName('bar-2')
+                var bar3=document.getElementsByClassName('bar-3')
+                var bar4=document.getElementsByClassName('bar-4')
+                var bar5=document.getElementsByClassName('bar-5')
+                console.log(x)
+                if(x.localeCompare('News')==0){
+                    var five=Number("{{five.0}}")
+                    var four=Number("{{four.0}}")
+                    var three=Number("{{three.0}}")
+                    var two=Number("{{two.0}}")
+                    var one=Number("{{one.0}}")
+                    var sum=five+four+three+two+one
+                    five=(five/sum)*100
+                    four=(four/sum)*100
+                    three=(three/sum)*100
+                    two=(two/sum)*100
+                    one=(one/sum)*100
+                    document.getElementById("1").innerHTML="{{one.0}}";
+                    document.getElementById("2").innerHTML="{{two.0}}";
+                    document.getElementById("3").innerHTML="{{three.0}}";
+                    document.getElementById("4").innerHTML="{{four.0}}";
+                    document.getElementById("5").innerHTML="{{five.0}}";
+                    document.getElementById('average').innerHTML="{{website.average_media}}"
+                    document.getElementById('review').innerHTML=sum
+                    document.getElementById('typeName').innerHTML="News"
+                    bar1[0].style.width=one.toString()+'%'
+                    bar2[0].style.width=two.toString()+'%'
+                    bar3[0].style.width=three.toString()+'%'
+                    bar4[0].style.width=four.toString()+'%'
+                    bar5[0].style.width=five.toString()+'%'
+                    var elements = document.getElementsByClassName('fa');
+                    for (i = 1; i <=Math.floor(Number("{{website.average_media}}")); i++) {
+                        elements[i-1].classList.add("checked")
+                    }
+                    for (i = Math.floor(Number("{{website.average_media}}"))+1; i <=5; i++) {
+                        elements[i-1].classList.remove("checked")
+                    }
+
+                }
+                else if(x.localeCompare('Fact')==0){
+                    var five=Number("{{five.2}}")
+                    var four=Number("{{four.2}}")
+                    var three=Number("{{three.2}}")
+                    var two=Number("{{two.2}}")
+                    var one=Number("{{one.2}}")
+                    var sum=five+four+three+two+one
+                    five=(five/sum)*100
+                    four=(four/sum)*100
+                    three=(three/sum)*100
+                    two=(two/sum)*100
+                    one=(one/sum)*100
+                    document.getElementById("1").innerHTML="{{one.2}}";
+                    document.getElementById("2").innerHTML="{{two.2}}";
+                    document.getElementById("3").innerHTML="{{three.2}}";
+                    document.getElementById("4").innerHTML="{{four.2}}";
+                    document.getElementById("5").innerHTML="{{five.2}}";
+                    document.getElementById('average').innerHTML='{{website.average_fact }}'
+                    document.getElementById('review').innerHTML=sum
+                    document.getElementById('typeName').innerHTML="Fact"
+                    bar1[0].style.width=one.toString()+'%'
+                    bar2[0].style.width=two.toString()+'%'
+                    bar3[0].style.width=three.toString()+'%'
+                    bar4[0].style.width=four.toString()+'%'
+                    bar5[0].style.width=five.toString()+'%'
+                    var elements = document.getElementsByClassName('fa');
+                    var elements = document.getElementsByClassName('fa');
+                    for (i = 1; i <=Math.floor(Number("{{website.average_fact}}")); i++) {
+                        elements[i-1].classList.add("checked")
+                    }
+                    for (i = Math.floor(Number("{{website.average_fact}}"))+1; i <=5; i++) {
+                        elements[i-1].classList.remove("checked")
+                    }
+
+                }
+                else{
+                    var five=Number("{{five.1}}")
+                    var four=Number("{{four.1}}")
+                    var three=Number("{{three.1}}")
+                    var two=Number("{{two.1}}")
+                    var one=Number("{{one.1}}")
+                    var sum=five+four+three+two+one
+                    five=(five/sum)*100
+                    four=(four/sum)*100
+                    three=(three/sum)*100
+                    two=(two/sum)*100
+                    one=(one/sum)*100
+                    document.getElementById("1").innerHTML="{{one.1}}";
+                    document.getElementById("2").innerHTML="{{two.1}}";
+                    document.getElementById("3").innerHTML="{{three.1}}";
+                    document.getElementById("4").innerHTML="{{four.1}}";
+                    document.getElementById("5").innerHTML="{{five.1}}";
+                    document.getElementById('average').innerHTML="{{website.average_entertainment}}"
+                    document.getElementById('review').innerHTML=sum
+                    document.getElementById('typeName').innerHTML="Entertainment"
+                    bar1[0].style.width=one.toString()+'%'
+                    bar2[0].style.width=two.toString()+'%'
+                    bar3[0].style.width=three.toString()+'%'
+                    bar4[0].style.width=four.toString()+'%'
+                    bar5[0].style.width=five.toString()+'%'
+                    var elements = document.getElementsByClassName('fa');
+                    var elements = document.getElementsByClassName('fa');
+                    for (i = 1; i <=Math.floor(Number("{{website.average_entertainment}}")); i++) {
+                        elements[i-1].classList.add("checked")
+                    }
+                    for (i = Math.floor(Number("{{website.average_entertainment}}"))+1; i <=5; i++) {
+                        elements[i-1].classList.remove("checked")
+                    }
+                }
+            }
+            
+            </script>
   </body>
 </body>
 </html>
