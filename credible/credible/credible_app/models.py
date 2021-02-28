@@ -22,6 +22,7 @@ class WebsiteInfo(models.Model):
     number_entertainment_reviews=models.IntegerField(default=0)
     number_media_reviews=models.IntegerField(default=0)
     number_fact_reviews=models.IntegerField(default=0)
+    image = models.ImageField(upload_to='images', default='default.jpg')
 
 
 
