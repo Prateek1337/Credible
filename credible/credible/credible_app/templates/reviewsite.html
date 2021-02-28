@@ -441,17 +441,29 @@ body{
                     var two=Number("{{two.0}}")
                     var one=Number("{{one.0}}")
                     var sum=five+four+three+two+one
-                    five=(five/sum)*100
-                    four=(four/sum)*100
-                    three=(three/sum)*100
-                    two=(two/sum)*100
-                    one=(one/sum)*100
+                    console.log(five,four,three,two,one)
+                    var average="{{website.average_media}}"
+                    if(sum!=0){
+                        five=(five/sum)*100
+                        four=(four/sum)*100
+                        three=(three/sum)*100
+                        two=(two/sum)*100
+                        one=(one/sum)*100
+                    }   
+                    else{
+                        five=0
+                        four=0
+                        three=0
+                        two=0
+                        one=0
+                        average=0
+                    }
                     document.getElementById("1").innerHTML="{{one.0}}";
                     document.getElementById("2").innerHTML="{{two.0}}";
                     document.getElementById("3").innerHTML="{{three.0}}";
                     document.getElementById("4").innerHTML="{{four.0}}";
                     document.getElementById("5").innerHTML="{{five.0}}";
-                    document.getElementById('average').innerHTML="{{website.average_media}}"
+                    document.getElementById('average').innerHTML=average
                     document.getElementById('review').innerHTML=sum
                     document.getElementById('typeName').innerHTML="News"
                     bar1[0].style.width=one.toString()+'%'
@@ -460,10 +472,10 @@ body{
                     bar4[0].style.width=four.toString()+'%'
                     bar5[0].style.width=five.toString()+'%'
                     var elements = document.getElementsByClassName('fa');
-                    for (i = 1; i <=Math.floor(Number("{{website.average_media}}")); i++) {
+                    for (i = 1; i <=Math.floor(Number(average)); i++) {
                         elements[i-1].classList.add("checked")
                     }
-                    for (i = Math.floor(Number("{{website.average_media}}"))+1; i <=5; i++) {
+                    for (i = Math.floor(Number(average))+1; i <=5; i++) {
                         elements[i-1].classList.remove("checked")
                     }
 
@@ -480,14 +492,30 @@ body{
                     three=(three/sum)*100
                     two=(two/sum)*100
                     one=(one/sum)*100
+                    average='{{website.average_fact }}'
+                     if(sum!=0){
+                        five=(five/sum)*100
+                        four=(four/sum)*100
+                        three=(three/sum)*100
+                        two=(two/sum)*100
+                        one=(one/sum)*100
+                    }
+                    else{
+                        five=0
+                        four=0
+                        three=0
+                        two=0
+                        one=0
+                        average=0
+                    }
                     document.getElementById("1").innerHTML="{{one.2}}";
                     document.getElementById("2").innerHTML="{{two.2}}";
                     document.getElementById("3").innerHTML="{{three.2}}";
                     document.getElementById("4").innerHTML="{{four.2}}";
                     document.getElementById("5").innerHTML="{{five.2}}";
-                    document.getElementById('average').innerHTML='{{website.average_fact }}'
                     document.getElementById('review').innerHTML=sum
                     document.getElementById('typeName').innerHTML="Fact"
+                    document.getElementById('average').innerHTML=average
                     bar1[0].style.width=one.toString()+'%'
                     bar2[0].style.width=two.toString()+'%'
                     bar3[0].style.width=three.toString()+'%'
@@ -495,10 +523,10 @@ body{
                     bar5[0].style.width=five.toString()+'%'
                     var elements = document.getElementsByClassName('fa');
                     var elements = document.getElementsByClassName('fa');
-                    for (i = 1; i <=Math.floor(Number("{{website.average_fact}}")); i++) {
+                    for (i = 1; i <=Math.floor(Number(average)); i++) {
                         elements[i-1].classList.add("checked")
                     }
-                    for (i = Math.floor(Number("{{website.average_fact}}"))+1; i <=5; i++) {
+                    for (i = Math.floor(Number(average))+1; i <=5; i++) {
                         elements[i-1].classList.remove("checked")
                     }
 
@@ -515,25 +543,40 @@ body{
                     three=(three/sum)*100
                     two=(two/sum)*100
                     one=(one/sum)*100
+                    average="{{website.average_entertainment}}"
+                    if(sum!=0){
+                        five=(five/sum)*100
+                        four=(four/sum)*100
+                        three=(three/sum)*100
+                        two=(two/sum)*100
+                        one=(one/sum)*100
+                    }
+                    else{
+                        five=0
+                        four=0
+                        three=0
+                        two=0
+                        one=0
+                        average=0
+                    }
                     document.getElementById("1").innerHTML="{{one.1}}";
                     document.getElementById("2").innerHTML="{{two.1}}";
                     document.getElementById("3").innerHTML="{{three.1}}";
                     document.getElementById("4").innerHTML="{{four.1}}";
                     document.getElementById("5").innerHTML="{{five.1}}";
-                    document.getElementById('average').innerHTML="{{website.average_entertainment}}"
                     document.getElementById('review').innerHTML=sum
                     document.getElementById('typeName').innerHTML="Entertainment"
+                    document.getElementById('average').innerHTML=average
                     bar1[0].style.width=one.toString()+'%'
                     bar2[0].style.width=two.toString()+'%'
                     bar3[0].style.width=three.toString()+'%'
                     bar4[0].style.width=four.toString()+'%'
                     bar5[0].style.width=five.toString()+'%'
                     var elements = document.getElementsByClassName('fa');
-                    var elements = document.getElementsByClassName('fa');
-                    for (i = 1; i <=Math.floor(Number("{{website.average_entertainment}}")); i++) {
+                    for (i = 1; i <=Math.floor(Number(average)); i++) {
                         elements[i-1].classList.add("checked")
                     }
-                    for (i = Math.floor(Number("{{website.average_entertainment}}"))+1; i <=5; i++) {
+                    for (i = Math.floor(Number(average))+1; i <=5; i++) {
                         elements[i-1].classList.remove("checked")
                     }
                 }

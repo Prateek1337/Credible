@@ -33,12 +33,6 @@ def reviewsite(request):
         website=WebsiteInfo.objects.get(pk=search_key)
         print(user_email)
         print(User.objects.get(pk=user_email))
-        five_star=[len(Review.objects.filter(website_name=website,rating=5,category='News')),len(Review.objects.filter(website_name=website,rating=5,category='Entertainment')),len(Review.objects.filter(website_name=website,rating=5,category='Fact'))]
-        four_star=[len(Review.objects.filter(website_name=website,rating=4,category='News')),len(Review.objects.filter(website_name=website,rating=4,category='Entertainment')),len(Review.objects.filter(website_name=website,rating=4,category='Fact'))]
-        three_star=[len(Review.objects.filter(website_name=website,rating=3,category='News')),len(Review.objects.filter(website_name=website,rating=3,category='Entertainment')),len(Review.objects.filter(website_name=website,rating=3,category='Fact'))]
-        two_star=[len(Review.objects.filter(website_name=website,rating=2,category='News')),len(Review.objects.filter(website_name=website,rating=2,category='Entertainment')),len(Review.objects.filter(website_name=website,rating=2,category='Fact'))]
-        one_star=[len(Review.objects.filter(website_name=website,rating=1,category='News')),len(Review.objects.filter(website_name=website,rating=1,category='Entertainment')),len(Review.objects.filter(website_name=website,rating=1,category='Fact'))]
-        print('five_start',five_star)
         if 'rating' in request.POST:
             rc=Review.objects.filter(email=User.objects.get(pk=user_email),category=request.POST["type"],website_name=website)
             print("rc",rc)
@@ -54,6 +48,15 @@ def reviewsite(request):
                 review.save()
             
             updateCredibility(website,review)
+        
+        
+        five_star=[len(Review.objects.filter(website_name=website,rating=5,category='News')),len(Review.objects.filter(website_name=website,rating=5,category='Entertainment')),len(Review.objects.filter(website_name=website,rating=5,category='Fact'))]
+        four_star=[len(Review.objects.filter(website_name=website,rating=4,category='News')),len(Review.objects.filter(website_name=website,rating=4,category='Entertainment')),len(Review.objects.filter(website_name=website,rating=4,category='Fact'))]
+        three_star=[len(Review.objects.filter(website_name=website,rating=3,category='News')),len(Review.objects.filter(website_name=website,rating=3,category='Entertainment')),len(Review.objects.filter(website_name=website,rating=3,category='Fact'))]
+        two_star=[len(Review.objects.filter(website_name=website,rating=2,category='News')),len(Review.objects.filter(website_name=website,rating=2,category='Entertainment')),len(Review.objects.filter(website_name=website,rating=2,category='Fact'))]
+        one_star=[len(Review.objects.filter(website_name=website,rating=1,category='News')),len(Review.objects.filter(website_name=website,rating=1,category='Entertainment')),len(Review.objects.filter(website_name=website,rating=1,category='Fact'))]
+        print('five_start',five_star)
+            
         return render(request, 'reviewsite.html',{'website': website,'five':five_star,'four':four_star,'three':three_star,'two':two_star,'one':one_star})
     except WebsiteInfo.DoesNotExist:
         return render(request, 'addsite.html')
