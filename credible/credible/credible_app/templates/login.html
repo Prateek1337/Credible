@@ -78,10 +78,11 @@ button:hover {
 <body>
 
 <form action="" method="post" style="border:1px solid #ccc;width: 75%;align-items: center;">
+    {% csrf_token %}
   <div class="container">
     <h1>Login</h1>
     <hr>
-
+    {% csrf_token %}
     <label for="email"><b>Email</b></label><br>
     <input type="text" placeholder="Enter Email" name="email" required><br>
 
