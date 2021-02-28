@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Warning message</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+      </head>
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+a {
+    color: #c7ced4;
+    text-decoration: none;
+}
+
+a:hover, a:focus {
+    color: #bccfdf;
+    text-decoration: none;
+}
+
+</style>
+<body>
+
+<div class="container" style="padding: 10px;margin-top: 10px;">
+    <div class="alert alert-danger">
+        <strong>Error!</strong> We couldn't find this site in our records. Do you want to add this?
+      </div>
+</div>
+<div class="container" style="position: absolute;left: 40%;;">
+<button type="button" class="btn btn-success" style="margin: 10px;"><a  href="/addsite">Add</a></button>
+<button type="button" class="btn btn-danger" style="margin: 10px;"><a  href="/">Cancel</a></button>
+</div>
+
+</body>
+</html>
