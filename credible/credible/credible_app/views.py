@@ -77,7 +77,8 @@ def addsite(request):
 
         new_web = WebsiteInfo(name=web_name,url=url,twitter=twitter,wiki=wiki, location=headquater)
         new_web.save()
-        return render(request, 'index.html')
+        print(user_email + "hjg")
+        return redirect("/")
     else:
         return render(request, 'addsite.html')
 
@@ -94,6 +95,7 @@ def signup(request):
         except:
             user = User(name=request.POST["name"],email=request.POST["email"])
             user.save()
+            global user_email
             user_email=request.POST['email']
             return render(request,"index.html")
     return render(request,'signup.html')
