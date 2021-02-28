@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+
+<style>
+    body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 40%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* Set a style for all buttons */
+button {
+  background-color: #2196F3;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 30%;
+  opacity: 0.9;
+}
+
+button:hover {
+  opacity:1;
+}
+
+/* Extra styles for the cancel button */
+.loginbtn {
+  padding: 14px 20px;
+  background-color: #f44336;
+}
+
+/* Float cancel and signup buttons and add an equal width */
+.cancelbtn, .signupbtn {
+  float: left;
+  width: 50%;
+}
+
+/* Add padding to container elements */
+.container {
+  padding: 16px;
+  position: absolute;
+  left: 30%;
+}
+
+/* Clear floats */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Change styles for cancel button and signup button on extra small screens */
+@media screen and (max-width: 300px) {
+  .cancelbtn, .signupbtn {
+     width: 100%;
+     position: absolute;
+     right: 50%;
+  }
+}
+</style>
+
+<body>
+    {% if is_added %}
+    <div class="alert alert-danger" style="margin: 10px;">
+        <strong>Error!</strong> Website doesn't exists!
+      </div>
+    {% endif %}
+    <div class="container">
+    <h1 style="margin-top: 10px;"> Enter Website Details:</h1>
+    <form class="example"  action="/addsite" method="post" style="padding: 10px;align-items: center;">
+        {% csrf_token %}
+        <label for="name"><b>Domain Name</b></label><br>
+        <input type="text" name="name" placeholder="Enter domain name" required><br>
+
+        <label for="url"><b>URL</b></label><br>
+        <input type="text" name="url", placeholder="Enter URL of website" required><br>
+
+        <label for="twitter"><b>Twitter</b></label><br>
+        <input type="text" name="twitter" placeholder="Enter twitter handle" required><br>
+
+        <label for="wiki"><b>Wiki</b></label><br>
+        <input type="text" name="wiki" placeholder="Enter wiki link" required><br>
+
+        <label for="headquater"><b>Location</b></label><br>
+        <input type="text" name="headquater" placeholder="Enter location" required><br>
+
+        <button type="submit" class="btn btn-primary m-3">Submit</button>
+      </form>
+    </div>
+</body>
+</html>

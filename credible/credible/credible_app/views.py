@@ -41,7 +41,39 @@ def reviewsite(request):
             updateCredibility(website,review)
         return render(request, 'reviewsite.html',{'website': website})
     except WebsiteInfo.DoesNotExist:
-        return HttpResponse("Website does not exist  in database")
+        return render(request, 'addsite.html')
+
+def addsite(request):
+    is_added = 0
+    if request.method == 'POST':
+        print(request.POST)
+        url = request.POST['url']
+        try:
+            response = requests.get(url)
+            if response.status_code == 200:
+                print('Web site exists')
+            else:
+                print('Web site does not exist') 
+                is_added = -1
+        except:
+            print("No response")
+            is_added = -1
+        if is_added == -1:
+            return render(request, 'addsite.html',{'is_added':-1})
+        web_name = request.POST['name']
+        
+        wiki = request.POST['wiki']
+        twitter = request.POST['twitter']
+        headquater = request.POST['headquater']
+
+        new_web = WebsiteInfo(name=web_name,url=url,twitter=twitter,wiki=wiki, location=headquater)
+        new_web.save()
+        return render(request, 'index.html')
+    else:
+        return render(request, 'addsite.html')
+
+def wantadd(request):
+    return render(request, 'wantadd.html')
 
 @csrf_exempt
 def signup(request):
