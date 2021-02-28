@@ -16,21 +16,12 @@ def reviewsite(request):
     print(user_email)
     print(request.POST)
     search_key = request.POST['search']
-    url='https://www.'+search_key+'.com'
-    print(search_key)
-    try:
-        response = requests.get(url)
-        if response.status_code == 200:
-            print('Web site exists')
-        else:
-            print('Web site does not exist') 
-    except:
-        print("No response")
-        return HttpResponse("No response from website")
     
     # print(WebsiteInfo.objects.get(pk=search_key))
     try:
         website=WebsiteInfo.objects.get(pk=search_key)
+        url=website.url
+        print(search_key)
         print(user_email)
         print(User.objects.get(pk=user_email))
         five_star=[len(Review.objects.filter(website_name=website,rating=5,category='News')),len(Review.objects.filter(website_name=website,rating=5,category='Entertainment')),len(Review.objects.filter(website_name=website,rating=5,category='Fact'))]
@@ -56,7 +47,7 @@ def reviewsite(request):
             updateCredibility(website,review)
         return render(request, 'reviewsite.html',{'website': website,'five':five_star,'four':four_star,'three':three_star,'two':two_star,'one':one_star})
     except WebsiteInfo.DoesNotExist:
-        return render(request, 'addsite.html')
+        return render(request, 'wantadd.html')
 
 def addsite(request):
     is_added = 0
@@ -90,9 +81,7 @@ def addsite(request):
 def wantadd(request):
     return render(request, 'wantadd.html')
 
-@csrf_exempt
 def signup(request):
-    
     if request.method == "POST":
         #context = {"name":"hehe", "email":"ee", "password":"11"}
         print(request.POST)
@@ -102,10 +91,10 @@ def signup(request):
         except:
             user = User(name=request.POST["name"],email=request.POST["email"])
             user.save()
+            user_email=request.POST['email']
             return render(request,"index.html")
     return render(request,'signup.html')
 
-@csrf_exempt
 def login(request):
     print(request)
     if request.method == "POST":
@@ -124,6 +113,7 @@ def login(request):
 
 def updateCredibility(website,review):
     user=User.objects.get(pk = user_email)
+    url = website.url
     reviews=Review.objects.all().filter(category=review.category)
     weight_sum=0
     for r in reviews:
@@ -151,8 +141,20 @@ def updateCredibility(website,review):
         + float(user.weight)*float(review.rating))/weight_sum
         website.number_fact_reviews=website.number_fact_reviews+1
         website.average_fact=new_fact_average
-    
-    website.average=(website.average_entertainment+website.average_fact+website.average_media)/3
+    extension_wt_dict = {'.com':1,'.gov':1.2, '.in':1.01}
+    extension_wt = 0
+    if ".com" in url:
+        extension_wt = 1
+    elif ".gov" in url:
+        extension_wt = 1.2
+    elif ".in" in url:
+        extension_wt = 1.01
+    else:
+        extension_wt = 0.8
+    website.average=min(5,extension_wt*(website.average_entertainment*website.number_entertainment_reviews
+    + website.average_fact*website.number_fact_reviews 
+    + website.average_media*website.number_media_reviews)/(website.number_entertainment_reviews 
+    + website.number_fact_reviews + website.number_media_reviews + 1))
     website.save()
     
 
